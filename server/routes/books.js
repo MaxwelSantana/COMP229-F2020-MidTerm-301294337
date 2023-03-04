@@ -27,7 +27,7 @@ router.get('/', (req, res, next) => {
 router.get('/add', (req, res, next) => {
   res.render('books/details', {
     title: 'Add Book',
-    books: {}
+    book: {}
   });
 });
 
@@ -92,10 +92,18 @@ router.post('/:id', (req, res, next) => {
 
 // GET - process the delete by user id
 router.get('/delete/:id', (req, res, next) => {
-
-  /*****************
-   * ADD CODE HERE *
-   *****************/
+  let id = req.params.id;
+  Book.remove({_id:id},(err)=>{
+    if(err)
+    {
+        console.log(err);
+        res.end(err);
+    }
+    else
+    {
+        res.redirect('/books');
+    }
+  });
 });
 
 
